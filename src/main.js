@@ -28,6 +28,21 @@ bot.on(message('voice'), async ctx => {
     }
 })
 
+bot.on(message('text'), async ctx => {
+    try {
+        await ctx.reply(code('Запит отримано, очікуйте на відповідь :)'));
+
+        await ctx.reply(code(`Ваш запит: "${ctx.message.text}"`));
+
+        const messages = [{ role: 'user', content: ctx.message.text }]
+        const response = await openAI.chat(messages);
+
+        await ctx.reply(code(response.content));
+    } catch (e) {
+        console.log('Text message error', e.message);
+    }
+})
+
 bot.command('start', async (ctx) => {
     await ctx.reply(code('Продиктуйте свій запит :)'));
 })
