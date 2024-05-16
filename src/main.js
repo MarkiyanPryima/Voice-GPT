@@ -28,11 +28,11 @@ bot.on(message('voice'), async ctx => {
     }
 })
 
-bot.on(message('text'), async ctx => {
-    if (ctx.message.text === '/start') {
-        return;
-    }
+bot.command('start', async (ctx) => {
+    await ctx.reply(code('Продиктуйте або напишіть свій запит :)'));
+})
 
+bot.on(message('text'), async ctx => {
     try {
         await ctx.reply(code('Запит отримано, очікуйте на відповідь :)'));
 
@@ -45,10 +45,6 @@ bot.on(message('text'), async ctx => {
     } catch (e) {
         console.log('Text message error', e.message);
     }
-})
-
-bot.command('start', async (ctx) => {
-    await ctx.reply(code('Продиктуйте свій запит :)'));
 })
 
 bot.launch().then();
